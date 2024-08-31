@@ -1,0 +1,23 @@
+{
+  "name": "brgndy-libraries",
+  "version": "1.0.0",
+  "description": "라이브러리 관리를 위한 모노레포 구축",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "pnpm -r test"
+  },
+  "keywords": [
+    "brngdy",
+    "packages",
+    "pnpm"
+  ],
+  "author": "brgndy",
+  "license": "ISC",
+  "devDependencies": {
+    "@changesets/cli": "^2.27.7"
+  }
+}
