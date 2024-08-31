@@ -36,3 +36,4 @@ jobs:
 
       - name: Run tests for changed packages
         if: env.CHANGED_WORKSPACES != ''
+        run: pnpm -r --filter "${{ env.CHANGED_WORKSPACES }}" test
