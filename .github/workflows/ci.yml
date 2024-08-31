@@ -25,20 +25,27 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Install changesets
-        run: pnpm install @changesets/cli -w
-
       - name: Fetch main branch
-        run: git fetch origin main:main
+        run: git fetch origin main
 
       - name: Get changed workspaces
         id: changesets
         run: |
-          # Check for changed workspaces
-          CHANGED_WORKSPACES=$(pnpm changeset status --since-ref main --verbose | grep '^-' | cut -d ' ' -f 2 | tr '\n' ' ')
+          CHANGED_WORKSPACES=$(git diff --name-only origin/main...HEAD -- packages/ | grep 'packages/' | cut -d '/' -f 2 | sort | uniq)
           echo "Changed workspaces: $CHANGED_WORKSPACES"
           echo "CHANGED_WORKSPACES=$CHANGED_WORKSPACES" >> $GITHUB_ENV
 
+      - name: Add empty changeset if necessary
+        if: env.CHANGED_WORKSPACES != ''
+        run: |
+          if pnpm changeset status --since-ref main --verbose | grep -q 'Some packages have been changed'; then
+            pnpm changeset add --empty
+          fi
+
       - name: Run tests for changed packages
         if: env.CHANGED_WORKSPACES != ''
-        run: pnpm -r --filter "${{ env.CHANGED_WORKSPACES }}" test
+        run: |
+          for package in ${{ env.CHANGED_WORKSPACES }}; do
+            echo "Running tests for package: $package"
+            pnpm -r --filter "./packages/$package" test
+          done
