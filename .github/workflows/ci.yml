@@ -24,15 +24,15 @@ jobs:
         run: pnpm install
 
       - name: Install changesets
-        run: pnpm install @changesets/cli
+        run: pnpm install @changesets/cli -w
 
       - name: Get changed workspaces
         id: changesets
         run: |
+          # Check for changed workspaces
           CHANGED_WORKSPACES=$(pnpm changeset status --since-ref main --verbose | grep '^-' | cut -d ' ' -f 2 | tr '\n' ' ')
           echo "Changed workspaces: $CHANGED_WORKSPACES"
           echo "CHANGED_WORKSPACES=$CHANGED_WORKSPACES" >> $GITHUB_ENV
 
       - name: Run tests for changed packages
         if: env.CHANGED_WORKSPACES != ''
-        run: pnpm -r --filter="${{ env.CHANGED_WORKSPACES }}" test
