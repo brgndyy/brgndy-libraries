@@ -26,7 +26,10 @@ jobs:
       - name: Get changed workspaces
         id: changesets
         run: |
-          echo "CHANGED_WORKSPACES=$(pnpm list --depth=-1 --json | jq -r '.[] | select(.dev !== true) | select(.updated === true) | .path' | tr '\n' ' ')" >> $GITHUB_ENV
+          CHANGED_WORKSPACES=$(pnpm list --depth=-1 --json | jq -r '.[] | select(.dev !== true) | select(.updated === true) | .name')
+          echo "Changed workspaces: $CHANGED_WORKSPACES"
+          echo "CHANGED_WORKSPACES=$CHANGED_WORKSPACES" >> $GITHUB_ENV
 
       - name: Run tests for changed packages
+        if: env.CHANGED_WORKSPACES != ''
         run: pnpm -r --filter="${{ env.CHANGED_WORKSPACES }}" test
