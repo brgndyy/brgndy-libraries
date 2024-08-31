@@ -23,11 +23,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Install changesets
+        run: pnpm install @changesets/cli
+
       - name: Get changed workspaces
         id: changesets
         run: |
-          # Use git diff to find changed packages
-          CHANGED_WORKSPACES=$(git diff --name-only origin/main...HEAD -- packages/ | grep 'packages/' | cut -d '/' -f 2 | sort | uniq)
+          CHANGED_WORKSPACES=$(pnpm changeset status --since-ref main --verbose | grep '^-' | cut -d ' ' -f 2 | tr '\n' ' ')
           echo "Changed workspaces: $CHANGED_WORKSPACES"
           echo "CHANGED_WORKSPACES=$CHANGED_WORKSPACES" >> $GITHUB_ENV
 
