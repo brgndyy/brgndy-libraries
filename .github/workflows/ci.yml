@@ -31,7 +31,6 @@ jobs:
       - name: Get changed workspaces
         id: changesets
         run: |
-          # Fetch the list of changed files and extract unique package names
           CHANGED_WORKSPACES=$(git diff --name-only origin/main...HEAD -- packages/ | grep 'packages/' | cut -d '/' -f 2 | sort | uniq | tr '\n' ',')
           echo "Changed workspaces: $CHANGED_WORKSPACES"
           echo "CHANGED_WORKSPACES=$CHANGED_WORKSPACES" >> $GITHUB_ENV
@@ -50,6 +49,6 @@ jobs:
           for package in "${packages[@]}"; do
             if [ -n "$package" ]; then
               echo "Running tests for package: $package"
-              pnpm -r --filter "$package" test
+              pnpm -r --filter "./packages/$package" test
             fi
           done
