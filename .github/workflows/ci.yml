@@ -26,6 +26,10 @@ jobs:
       - name: Get changed workspaces
         id: changesets
         run: |
+          # Debugging: Output the result of pnpm list
+          pnpm list --depth=-1 --json
+
+          # Extract changed workspaces
           CHANGED_WORKSPACES=$(pnpm list --depth=-1 --json | jq -r '.[] | select(.dev != true) | select(.updated == true) | .name')
           echo "Changed workspaces: $CHANGED_WORKSPACES"
           echo "CHANGED_WORKSPACES=$CHANGED_WORKSPACES" >> $GITHUB_ENV
