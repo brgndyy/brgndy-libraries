@@ -20,7 +20,6 @@ export default [
     ],
     plugins: [
       typescript(),
-
       nodeResolve(),
       commonjs(),
 
@@ -32,11 +31,12 @@ export default [
         limit: 100000,
       }),
     ],
+    external: ['react', 'react-dom'],
   },
   {
-    input: 'dist/lib/index.d.ts',
+    input: 'dist/index.d.ts',
     output: [{ file: 'dist/index.d.ts', format: 'esm' }],
     plugins: [dts.default()],
-    external: ['react', 'react-dom'],
+    external: [/\.css$/],
   },
 ];
