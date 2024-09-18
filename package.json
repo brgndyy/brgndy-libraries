@@ -4,7 +4,7 @@
   "description": "라이브러리 관리를 위한 모노레포 구축",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/**/**"
   ],
   "scripts": {
     "build": "pnpm -r build",
