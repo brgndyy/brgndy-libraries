@@ -1,14 +1,14 @@
 import { useEffect, useRef } from 'react';
 
-interface OutsideClickOptions {
+interface ClickDetectionOptions {
   onOutsideClick: () => void;
   onInsideClick: () => void;
 }
 
-const useOutsideClick = <T extends HTMLElement>({
+const useClickDetection = <T extends HTMLElement>({
   onOutsideClick,
   onInsideClick,
-}: OutsideClickOptions) => {
+}: ClickDetectionOptions) => {
   const ref = useRef<T | null>(null);
 
   useEffect(() => {
@@ -33,4 +33,4 @@ const useOutsideClick = <T extends HTMLElement>({
   return ref;
 };
 
-export default useOutsideClick;
+export default useClickDetection;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { vi } from 'vitest';
-import useOutsideClick from './useOutsideClick';
+import useClickDetection from './useClickDetection';
 
 function TestComponent({
   onOutsideClick,
@@ -10,7 +10,7 @@ function TestComponent({
   onOutsideClick: () => void;
   onInsideClick: () => void;
 }) {
-  const ref = useOutsideClick<HTMLDivElement>({
+  const ref = useClickDetection<HTMLDivElement>({
     onOutsideClick,
     onInsideClick,
   });
@@ -25,7 +25,7 @@ function TestComponent({
   );
 }
 
-describe('useOutSideClick에 대한 테스트 코드를 작성한다.', () => {
+describe('useClickDetection에 대한 테스트 코드를 작성한다.', () => {
   test('요소의 내부를 클릭했을때 onInsideClick 함수를 호출한다.', () => {
     const onInsideClick = vi.fn();
     const onOutsideClick = vi.fn();
