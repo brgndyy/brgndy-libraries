@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "jsx": "react",
+    "jsx": "react-jsx",
     "target": "ESNext",
     "module": "ESNext",
     "esModuleInterop": true,
@@ -17,5 +17,5 @@
     "emitDeclarationOnly": true,
     "traceResolution": true
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "**/*.tsx"]
 }
