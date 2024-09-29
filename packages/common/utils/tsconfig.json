@@ -15,7 +15,9 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "emitDeclarationOnly": true,
-    "traceResolution": true
+    "traceResolution": true,
+    "lib": ["ESNext", "DOM"]
   },
-  "include": ["src/**/*", "**/*.tsx"]
+  "include": ["src/**/*"],
+  "exclude": ["dist", "types"]
 }
