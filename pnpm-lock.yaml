@@ -351,58 +351,6 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1(@types/node@22.5.3)(jsdom@24.1.0)(terser@5.31.6)
 
-  packages/react/use-modal:
-    dependencies:
-      classnames:
-        specifier: ^2.5.1
-        version: 2.5.1
-    devDependencies:
-      '@rollup/plugin-commonjs':
-        specifier: ^26.0.1
-        version: 26.0.1(rollup@4.21.2)
-      '@rollup/plugin-node-resolve':
-        specifier: ^15.2.3
-        version: 15.2.3(rollup@4.21.2)
-      '@rollup/plugin-terser':
-        specifier: ^0.4.4
-        version: 0.4.4(rollup@4.21.2)
-      '@rollup/plugin-typescript':
-        specifier: ^11.1.6
-        version: 11.1.6(rollup@4.21.2)(tslib@2.7.0)(typescript@5.6.2)
-      '@testing-library/dom':
-        specifier: ^10.1.0
-        version: 10.1.0
-      '@testing-library/jest-dom':
-        specifier: ^6.5.0
-        version: 6.5.0
-      '@testing-library/react':
-        specifier: ^16.0.1
-        version: 16.0.1(@testing-library/dom@10.1.0)(@types/react-dom@18.3.0)(@types/react@18.3.7)(react-dom@18.3.1(react@18.2.0))(react@18.2.0)
-      '@types/react':
-        specifier: ^18.3.7
-        version: 18.3.7
-      '@types/react-dom':
-        specifier: ^18.3.0
-        version: 18.3.0
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
-      react-dom:
-        specifier: ^18.3.1
-        version: 18.3.1(react@18.2.0)
-      rollup:
-        specifier: ^4.13.0
-        version: 4.21.2
-      rollup-plugin-peer-deps-external:
-        specifier: ^2.2.4
-        version: 2.2.4(rollup@4.21.2)
-      typescript:
-        specifier: ^5.6.2
-        version: 5.6.2
-      vitest:
-        specifier: ^2.1.1
-        version: 2.1.1(@types/node@22.5.3)(jsdom@24.1.0)(terser@5.31.6)
-
 packages:
 
   '@adobe/css-tools@4.4.0':
@@ -2754,9 +2702,6 @@ packages:
 
   citty@0.1.6:
     resolution: {integrity: sha512-tskPPKEs8D2KPafUypv2gxwJP8h/OaJmC82QQGGDQcHvXX43xF2VDACcJVmZ0EuSxkpO9Kc4MlrA3q0+FG58AQ==}
-
-  classnames@2.5.1:
-    resolution: {integrity: sha512-saHYOzhIQs6wy2sVxTM6bUDsQO4F50V9RQ22qBpEdCW+I+/Wmke2HOl6lS6dTpdxVhb88/I6+Hs+438c3lfUow==}
 
   cli-cursor@3.1.0:
     resolution: {integrity: sha512-I/zHAwsKf9FqGoXM4WWRACob9+SNukZTd94DWF57E4toouRulbCxcUh6RKUEOQlYTHJnzkPMySvPNaaSLNfLZw==}
@@ -8957,8 +8902,6 @@ snapshots:
   citty@0.1.6:
     dependencies:
       consola: 3.2.3
-
-  classnames@2.5.1: {}
 
   cli-cursor@3.1.0:
     dependencies:
