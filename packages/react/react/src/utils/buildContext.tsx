@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useMemo, ReactNode } from 'react';
+import { createContext, useContext, useState, useMemo, ReactNode } from 'react';
 
 type ProviderProps<T> = {
   children: ReactNode;
@@ -6,7 +6,9 @@ type ProviderProps<T> = {
 };
 
 export function buildContext<T extends object>(contextName: string, defaultContext: T) {
-  const Context = createContext<T | null>(null);
+  type ContextWithUpdate = T & { updateContext: (updates: Partial<T>) => void };
+
+  const Context = createContext<ContextWithUpdate | null>(null);
 
   function Provider({ children, value }: ProviderProps<T>) {
     const [state, setState] = useState<T>(() => ({
@@ -28,10 +30,10 @@ export function buildContext<T extends object>(contextName: string, defaultConte
     return <Context.Provider value={contextValue}>{children}</Context.Provider>;
   }
 
-  function useContextHook(): T {
+  function useContextHook(): ContextWithUpdate {
     const context = useContext(Context);
 
-    if (context === null || undefined) {
+    if (context === null || context === undefined) {
       throw new Error(`use${contextName} must be used within a ${contextName}Provider`);
     }
 
