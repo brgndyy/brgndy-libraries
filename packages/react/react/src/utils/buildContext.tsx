@@ -1,3 +1,4 @@
+// buildContext.tsx
 import { createContext, useContext, useState, useMemo, ReactNode } from 'react';
 
 type ProviderProps<T> = {
@@ -5,10 +6,10 @@ type ProviderProps<T> = {
   value?: Partial<T>;
 };
 
-export function buildContext<T extends object>(contextName: string, defaultContext: T) {
-  type ContextWithUpdate = T & { updateContext: (updates: Partial<T>) => void };
-
-  const Context = createContext<ContextWithUpdate | null>(null);
+export function buildContext<T>(contextName: string, defaultContext: T) {
+  const Context = createContext<(T & { updateContext: (updates: Partial<T>) => void }) | null>(
+    null,
+  );
 
   function Provider({ children, value }: ProviderProps<T>) {
     const [state, setState] = useState<T>(() => ({
@@ -16,24 +17,24 @@ export function buildContext<T extends object>(contextName: string, defaultConte
       ...value,
     }));
 
-    const contextValue = useMemo(() => {
-      const updateContext = (updates: Partial<T>) => {
-        setState((prevState) => ({ ...prevState, ...updates }));
-      };
+    const updateContext = (updates: Partial<T>) => {
+      setState((prevState) => ({
+        ...prevState,
+        ...updates,
+      }));
+    };
 
-      return {
-        ...state,
-        updateContext,
-      };
-    }, [state]);
+    const contextValue = useMemo(() => ({ ...state, updateContext }), [state]);
 
     return <Context.Provider value={contextValue}>{children}</Context.Provider>;
   }
 
-  function useContextHook(): ContextWithUpdate {
+  function useContextHook(): T & {
+    updateContext: (updates: Partial<T>) => void;
+  } {
     const context = useContext(Context);
 
-    if (context === null || context === undefined) {
+    if (!context) {
       throw new Error(`use${contextName} must be used within a ${contextName}Provider`);
     }
 

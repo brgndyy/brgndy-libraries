@@ -12,16 +12,13 @@ Context를 정의할때 발생하는 보일러플레이트를 줄여주는 함�
 
 ```tsx
 import { buildContext } from './buildContext';
-import React from 'react';
 
 interface CountContextProps {
   count: number;
-  setCount: (newCount: number) => void;
 }
 
-const [CountProvider, useCount] = buildContext<CountContextProps>('Count', {
+const [CountProvider, useCountContext] = buildContext<CountContextProps>('Count', {
   count: 0,
-  setCount: () => {},
 });
 
 export default function App() {
@@ -33,16 +30,16 @@ export default function App() {
 }
 
 const Inner = () => {
-  const { count, setCount } = useCount();
+  const { count, updateContext } = useCountContext();
 
-  const incrementCount = () => {
-    setCount(count + 1);
+  const handleIncrementCount = () => {
+    updateContext({ count: count + 1 });
   };
 
   return (
     <>
       <div>Count: {count}</div>
-      <button onClick={incrementCount}>Increment</button>
+      <button onClick={handleIncrementCount}>Increment</button>
     </>
   );
 };
